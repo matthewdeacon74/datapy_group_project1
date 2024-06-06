@@ -16,7 +16,7 @@ def search_by_author(inventory: list):
     find_author = input("Which author do you wish to search for? ")
     search_results = []
     for item in inventory:
-        if item.author.lower() == find_author.lower():
+        if find_author.lower() in item.author.lower():
             search_results.append(item)
     print(f"Books by {find_author}:")
     for item in search_results:
@@ -29,7 +29,7 @@ def search_by_author(inventory: list):
 
 
 def search_by_title(inventory: list):
-    find_title = input("Which author do you wish to search for? ")
+    find_title = input("Which title do you wish to search for? ")
     found = False
     for item in inventory:
         if item.title.lower() == find_title.lower():
