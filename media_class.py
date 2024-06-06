@@ -5,3 +5,6 @@ class Media:
         self.author = author
         self.status = status
         self.condition = condition
+        self.due_date = 'N/A'
+
+
