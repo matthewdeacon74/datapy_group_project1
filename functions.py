@@ -1,5 +1,5 @@
 import datetime
-import inventory
+import inventory  # Only used in function calls, not function defs
 
 
 def display_all(inventory: list):
@@ -16,7 +16,7 @@ def search_by_author(inventory: list):
     find_author = input("Which author do you wish to search for? ")
     search_results = []
     for item in inventory:
-        if item.author == find_author:
+        if item.author.lower() == find_author.lower():
             search_results.append(item)
     print(f"Books by {find_author}:")
     for item in search_results:
