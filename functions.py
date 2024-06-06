@@ -49,19 +49,31 @@ def checkout(inventory: list):
         for i, item in enumerate(inventory):
             print(f"{i+1}. {item.title} by {item.author}")
         checkout_book = int(input(f"Which book do you wish to check out (1-{len(inventory)})? "))
-        if inventory[checkout_book-1].status == 'checked out':
-            print("That book is already checked out, please select another")
+        if inventory[checkout_book-1].status == 'out':
+            print("That book is already checked out, please select another:")
+            print()
         else:
             this_book = inventory[checkout_book-1]
             # check it out and update due date, break the loop
-            this_book.status = 'checked out'
+            this_book.status = 'out'
+            this_book.condition -= 10
             new_due = datetime.date.today() + datetime.timedelta(days=14)
             this_book.due_date = new_due
             print(f"{this_book.title} by {this_book.author} has been checked out.  Please return it by {new_due}.")
             break
 
 
+def checkin(inventory:list):
+    for item in inventory:
+        # build list of only books that are out
+        i = 0
+        if item.status == 'out':
+            print(f"{i + 1}. {item.title} by {item.author}")
+            i += 1
+        checkin_book = int(input(f"Which book do you wish to check in (1-{i+1})? "))
+
 # display_all(inventory.inventory)
 # search_by_author(inventory.inventory)
 # search_by_title(inventory.inventory)
 # checkout(inventory.inventory)
+checkin(inventory.inventory)
