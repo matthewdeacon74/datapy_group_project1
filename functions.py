@@ -49,19 +49,56 @@ def checkout(inventory: list):
         for i, item in enumerate(inventory):
             print(f"{i+1}. {item.title} by {item.author}")
         checkout_book = int(input(f"Which book do you wish to check out (1-{len(inventory)})? "))
-        if inventory[checkout_book-1].status == 'checked out':
-            print("That book is already checked out, please select another")
+        if inventory[checkout_book-1].status == 'out':
+            print("That book is already checked out, please select another:")
+            print()
         else:
             this_book = inventory[checkout_book-1]
             # check it out and update due date, break the loop
-            this_book.status = 'checked out'
+            this_book.status = 'out'
+            this_book.condition -= 10
             new_due = datetime.date.today() + datetime.timedelta(days=14)
             this_book.due_date = new_due
             print(f"{this_book.title} by {this_book.author} has been checked out.  Please return it by {new_due}.")
             break
 
 
+def checkin(inventory:list):
+    listnum = 0
+    return_stack = []
+    out_list = []
+    for i, item in enumerate(inventory):
+        # build list of only books that are out
+        if item.status == 'out':
+            print(f"{listnum + 1}. {item.title} by {item.author}")
+            out_list.append(inventory[i])
+            listnum += 1
+    if listnum > 0:
+        process_return = 'n'
+        while len(return_stack) < listnum and not process_return == 'y':
+            user_pick = int(input(f"Which book do you wish to check in (1-{listnum})? "))
+            return_stack.append(out_list[user_pick-1])
+            print(f"{out_list[user_pick-1].title} has been added to the returns pile")
+            process_return = input("Do you wish to process the returns now (y/n)?")
+        # process returns
+        if process_return == 'y':
+            for book in return_stack:
+                if book.condition < 20:
+                    print(f"{book.title} is no longer usable; it will be removed from circulation and recycled.")
+                    print(len(inventory))
+                    inventory.remove(book)
+                    print(len(inventory))
+                else:
+                    print(f"{book.title} has been checked in.")
+                    book.status = 'in'
+                    book.due_date = 'N/A'
+                    # print(book.title, book.status, book.due_date)
+
+    else:
+        print("There aren't any books checked out right now.")
+
 # display_all(inventory.inventory)
 # search_by_author(inventory.inventory)
 # search_by_title(inventory.inventory)
 # checkout(inventory.inventory)
+# checkin(inventory.inventory)
