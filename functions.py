@@ -64,16 +64,41 @@ def checkout(inventory: list):
 
 
 def checkin(inventory:list):
-    for item in inventory:
+    listnum = 0
+    return_stack = []
+    out_list = []
+    for i, item in enumerate(inventory):
         # build list of only books that are out
-        i = 0
         if item.status == 'out':
-            print(f"{i + 1}. {item.title} by {item.author}")
-            i += 1
-        checkin_book = int(input(f"Which book do you wish to check in (1-{i+1})? "))
+            print(f"{listnum + 1}. {item.title} by {item.author}")
+            out_list.append(inventory[i])
+            listnum += 1
+    if listnum > 0:
+        process_return = 'n'
+        while len(return_stack) < listnum and not process_return == 'y':
+            user_pick = int(input(f"Which book do you wish to check in (1-{listnum})? "))
+            return_stack.append(out_list[user_pick-1])
+            print(f"{out_list[user_pick-1].title} has been added to the returns pile")
+            process_return = input("Do you wish to process the returns now (y/n)?")
+        # process returns
+        if process_return == 'y':
+            for book in return_stack:
+                if book.condition < 20:
+                    print(f"{book.title} is no longer usable; it will be removed from circulation and recycled.")
+                    print(len(inventory))
+                    inventory.remove(book)
+                    print(len(inventory))
+                else:
+                    print(f"{book.title} has been checked in.")
+                    book.status = 'in'
+                    book.due_date = 'N/A'
+                    # print(book.title, book.status, book.due_date)
+
+    else:
+        print("There aren't any books checked out right now.")
 
 # display_all(inventory.inventory)
 # search_by_author(inventory.inventory)
 # search_by_title(inventory.inventory)
 # checkout(inventory.inventory)
-checkin(inventory.inventory)
+# checkin(inventory.inventory)
