@@ -16,7 +16,7 @@ def search_by_author(inventory: list):
     find_author = input("Which author do you wish to search for? ")
     search_results = []
     for item in inventory:
-        if item.author.lower() == find_author.lower():
+        if find_author.lower() in item.author.lower():
             search_results.append(item)
     print(f"Books by {find_author}:")
     for item in search_results:
@@ -29,7 +29,7 @@ def search_by_author(inventory: list):
 
 
 def search_by_title(inventory: list):
-    find_title = input("Which author do you wish to search for? ")
+    find_title = input("Which title do you wish to search for? ")
     found = False
     for item in inventory:
         if item.title.lower() == find_title.lower():
@@ -76,7 +76,9 @@ def checkin(inventory:list):
     if listnum > 0:
         process_return = 'n'
         while len(return_stack) < listnum and not process_return == 'y':
-            user_pick = int(input(f"Which book do you wish to check in (1-{listnum})? "))
+            user_pick = int(input(f"Which book do you wish to check in (1-{listnum}) or 0 for none? "))
+            if user_pick == 0:
+                break
             return_stack.append(out_list[user_pick-1])
             print(f"{out_list[user_pick-1].title} has been added to the returns pile")
             process_return = input("Do you wish to process the returns now (y/n)?")
@@ -90,10 +92,11 @@ def checkin(inventory:list):
                     print(len(inventory))
                 else:
                     print(f"{book.title} has been checked in.")
+                    inventory.append(book)
                     book.status = 'in'
                     book.due_date = 'N/A'
-                    # print(book.title, book.status, book.due_date)
-
+            # exit function
+            return
     else:
         print("There aren't any books checked out right now.")
 
