@@ -64,13 +64,19 @@ def checkin(inventory:list):
     for i, item in enumerate(inventory):
         # build list of only books that are out
         if item.status == 'out':
-            print(f"{listnum + 1}. {item.title} by {item.author}")
+            if hasattr(item, 'author'):
+                author = item.author
+            if hasattr(item, 'director'):
+                author = item.director
+            print(f"{listnum + 1}. {item.title} by {author}")
             out_list.append(inventory[i])
             listnum += 1
     if listnum > 0:
         process_return = 'n'
         while len(return_stack) < listnum and not process_return == 'y':
-            user_pick = int(input(f"Which book do you wish to check in (1-{listnum})? "))
+            user_pick = int(input(f"Which book do you wish to check in (1-{listnum}) or 0 for none? "))
+            if user_pick == 0:
+                break
             return_stack.append(out_list[user_pick-1])
             print(f"{out_list[user_pick-1].title} has been added to the returns pile")
             process_return = input("Do you wish to process the returns now (y/n)?")
@@ -84,10 +90,13 @@ def checkin(inventory:list):
                     print(len(inventory))
                 else:
                     print(f"{book.title} has been checked in.")
+                    print(inventory.index(book))
+                    if inventory.index(book) < 0:
+                        inventory.append(book)
                     book.status = 'in'
                     book.due_date = 'N/A'
-                    # print(book.title, book.status, book.due_date)
-
+            # exit function
+            return
     else:
         print("There aren't any books checked out right now.")
 
