@@ -9,12 +9,16 @@ def display_all(inventory: list):
 
 
 def search_by_author(inventory: list):
-    find_author = input("Which author do you wish to search for? ")
+    find_author = input("Which author/director do you wish to search for? ")
     search_results = []
     for item in inventory:
-        if find_author.lower() in item.author.lower():
+        if hasattr(item, 'author') and find_author.lower() in item.author.lower():
             search_results.append(item)
-    print(f"Books by {find_author}:")
+        if hasattr(item, 'director') and find_author.lower() in item.director.lower():
+            search_results.append(item)
+
+
+    print(f"Books or Movies by {find_author}:")
     for item in search_results:
         print()  # blank line between books
         print(item.get_inventory())

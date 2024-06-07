@@ -21,9 +21,9 @@ def main():
                 break
             elif user_action == '2' or user_action.lower() in 'search':
                 # lets user select either author or title after selecting search
-                search_by = input("Would you like to search by author or title? >> ").lower()
+                search_by = input("Would you like to search by author/direct or title? >> ").lower()
                 while True:
-                    if 'author' in search_by:
+                    if 'author' in search_by or 'director' in search_by:
                         functions.search_by_author(inventory.inventory)
                         break
 
@@ -39,8 +39,8 @@ def main():
                 functions.checkout(inventory.inventory)
                 break
 
-            # elif user_action == '4'or user_action.lower() in 'return':
-            #     functions.
+            elif user_action == '4' or user_action.lower() in 'return':
+                functions.checkin(inventory.inventory)
 
             else:
                 user_action = input("Please select a valid option: ")
