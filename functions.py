@@ -63,7 +63,11 @@ def checkin(inventory:list):
     for i, item in enumerate(inventory):
         # build list of only books that are out
         if item.status == 'out':
-            print(f"{listnum + 1}. {item.title} by {item.author}")
+            if hasattr(item, 'author'):
+                author = item.author
+            if hasattr(item, 'director'):
+                author = item.director
+            print(f"{listnum + 1}. {item.title} by {author}")
             out_list.append(inventory[i])
             listnum += 1
     if listnum > 0:
@@ -85,7 +89,9 @@ def checkin(inventory:list):
                     print(len(inventory))
                 else:
                     print(f"{book.title} has been checked in.")
-                    inventory.append(book)
+                    print(inventory.index(book))
+                    if inventory.index(book) < 0:
+                        inventory.append(book)
                     book.status = 'in'
                     book.due_date = 'N/A'
             # exit function
