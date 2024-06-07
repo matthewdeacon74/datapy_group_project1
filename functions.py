@@ -27,10 +27,10 @@ def search_by_title(inventory: list):
     find_title = input("Which title do you wish to search for? ")
     found = False
     for item in inventory:
-        if item.title.lower() == find_title.lower():
+        if find_title.lower() in item.title.lower():
+            print()  # blank line between books
             print(item.get_inventory())
             found = True
-            break
     if not found:
         print("I'm sorry, we don't have that one.")
 
