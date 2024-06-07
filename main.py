@@ -41,6 +41,7 @@ def main():
 
             elif user_action == '4' or user_action.lower() in 'return':
                 functions.checkin(inventory.inventory)
+                break
 
             else:
                 user_action = input("Please select a valid option: ")
