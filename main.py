@@ -23,7 +23,7 @@ def main():
                 break
             elif user_action == '2' or user_action.lower() in 'search':
                 # lets user select either author or title after selecting search
-                search_by = input("Would you like to search by author/direct or title? >> ").lower()
+                search_by = input("Would you like to search by author/director or title? >> ").lower()
                 while True:
                     if 'author' in search_by or 'director' in search_by:
                         functions.search_by_author(inventory.inventory)
