@@ -42,9 +42,9 @@ def checkout(inventory: list):
                 print(f"{i+1}. {item.title} by {item.author}")
             if hasattr(item, 'director'):
                 print(f"{i+1}. {item.title} directed by {item.director}")
-        checkout_book = int(input(f"Which book do you wish to check out (1-{len(inventory)})? "))
+        checkout_book = int(input(f"Which book or movie do you wish to check out (1-{len(inventory)})? "))
         if inventory[checkout_book-1].status == 'out':
-            print("That book is already checked out, please select another:")
+            print("That item is already checked out, please select another: ")
             print()
         else:
             this_book = inventory[checkout_book-1]
@@ -53,7 +53,10 @@ def checkout(inventory: list):
             this_book.condition -= 10
             new_due = datetime.date.today() + datetime.timedelta(days=14)
             this_book.due_date = new_due
-            print(f"{this_book.title} by {this_book.author} has been checked out.  Please return it by {new_due}.")
+            if hasattr(this_book, 'author'):
+                print(f"{this_book.title} by {this_book.author} has been checked out. Please return it by {new_due}.")
+            if hasattr(this_book, 'director'):
+                print(f"{this_book.title} directed by {this_book.director} has been checked out. Please return it by {new_due}.")
             break
 
 

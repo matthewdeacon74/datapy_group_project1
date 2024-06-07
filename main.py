@@ -1,5 +1,6 @@
 import functions
 import inventory
+from media_class import Book, Movie
 
 
 def main():
@@ -8,8 +9,9 @@ def main():
         user_action = input("Welcome to the Detroit Library, what would you like to do?\n"
                             "1. See Inventory\n"
                             "2. Search\n"
-                            "3. Check out a book\n"
-                            "4. Return a book\n"
+                            "3. Check out a book or movie\n"
+                            "4. Return a book or movie\n"
+                            "5. Donate a book or movie to the library\n"
                             ">> ")
 
         while True:
@@ -41,6 +43,19 @@ def main():
 
             elif user_action == '4' or user_action.lower() in 'return':
                 functions.checkin(inventory.inventory)
+                break
+
+            elif user_action == '5' or user_action.lower() in 'donate':
+                donation_type = input("Would you like to donate a book or a movie? ").lower()
+                if donation_type == 'book':
+                    user_title = input("What is the name of the book? ")
+                    user_author = input(f"Who is the author of {user_title}? ")
+                    inventory.inventory.append(Book(user_title, user_author, 'in', 100))
+                elif donation_type == 'movie':
+                    user_title = input("What is the name of the movie? ")
+                    user_director = input(f"Who is the director of {user_title}? ")
+                    user_runtime = int(input(f"How many minutes long is {user_title}? "))
+                    inventory.inventory.append(Movie(user_title, user_director, 'in', 100, user_runtime))
                 break
 
             else:
