@@ -17,12 +17,10 @@ def search_by_author(inventory: list):
         if hasattr(item, 'director') and find_author.lower() in item.director.lower():
             search_results.append(item)
 
-
     print(f"Books or Movies by {find_author}:")
     for item in search_results:
         print()  # blank line between books
         print(item.get_inventory())
-
 
 
 def search_by_title(inventory: list):
@@ -40,7 +38,10 @@ def search_by_title(inventory: list):
 def checkout(inventory: list):
     while True:
         for i, item in enumerate(inventory):
-            print(f"{i+1}. {item.title} by {item.author}")
+            if hasattr(item, 'author'):
+                print(f"{i+1}. {item.title} by {item.author}")
+            if hasattr(item, 'director'):
+                print(f"{i+1}. {item.title} directed by {item.director}")
         checkout_book = int(input(f"Which book do you wish to check out (1-{len(inventory)})? "))
         if inventory[checkout_book-1].status == 'out':
             print("That book is already checked out, please select another:")
