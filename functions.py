@@ -88,12 +88,9 @@ def checkin(inventory:list):
             for book in return_stack:
                 if book.condition < 20:
                     print(f"{book.title} is no longer usable; it will be removed from circulation and recycled.")
-                    print(len(inventory))
                     inventory.remove(book)
-                    print(len(inventory))
                 else:
                     print(f"{book.title} has been checked in.")
-                    print(inventory.index(book))
                     if inventory.index(book) < 0:
                         inventory.append(book)
                     book.status = 'in'
