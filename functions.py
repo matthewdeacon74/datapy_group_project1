@@ -16,12 +16,13 @@ def search_by_author(inventory: list):
             search_results.append(item)
         if hasattr(item, 'director') and find_author.lower() in item.director.lower():
             search_results.append(item)
-
-    print(f"Books or Movies by {find_author}:")
-    for item in search_results:
-        print()  # blank line between books
-        print(item.get_inventory())
-
+    if len(search_results) > 0:
+        print(f"Books or Movies by {find_author}:")
+        for item in search_results:
+            print()  # blank line between books
+            print(item.get_inventory())
+    else:
+        print("I'm sorry, we don't have anything by that person.")
 
 def search_by_title(inventory: list):
     find_title = input("Which title do you wish to search for? ")
