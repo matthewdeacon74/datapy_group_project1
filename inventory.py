@@ -11,7 +11,7 @@ inventory = [
     Book("Anxious People", "Fredrik Backman", "out", 100),
     Book("Leviathan Wakes", "James S. A. Corey", "in", 100),
     Book("The City and its Uncertain Walls", "Haruki Murakami", "in", 100),
-    Book("To Kill a Mockingbird", "Harper Lee", "out", 25),
+    Book("To Kill a Mockingbird", "Harper Lee", "in", 25),
     Book("The Lion, the Witch and the Wardrobe", "C. S. Lewis", "out", 100),
     Movie("My Cousin Vinny", "Jonathan Lynn", "in", 100, 120),
     Movie("Scott Pilgrim vs. the World", "Edgar Wright", "out", 100, 112),
